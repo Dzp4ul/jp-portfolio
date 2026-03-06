@@ -1,0 +1,2018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Personal portfolio website showcasing profile, skills, and projects.">
+
+    <title>My Portfolio | John Paul Manansala</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="transparent-lsogo.png">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --accent-dark: #2563eb;
+            --bg-primary: #060b18;
+            --bg-secondary: #0c1424;
+            --bg-card: #0f1a2e;
+            --text-primary: #ffffff;
+            --text-secondary: #94a3c0;
+            --text-muted: #5a6a85;
+            --border: rgba(59, 130, 246, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow: hidden;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', Arial, Helvetica, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow: hidden;
+            position: relative;
+        }
+
+        #fiberCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        a {
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--accent-light);
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(6, 11, 24, 0.9);
+            backdrop-filter: blur(20px);
+            padding: 18px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            box-sizing: border-box;
+            z-index: 1000;
+            border-bottom: none;
+        }
+
+        nav .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        nav img {
+            height: 38px;
+            width: auto;
+            cursor: pointer;
+        }
+
+        nav .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 15px;
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+
+        nav a:hover {
+            color: var(--text-primary);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        /* Header / Hero */
+        header {
+            background: transparent;
+            color: var(--text-primary);
+            padding: 0 60px;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 74px;
+            height: calc(100vh - 74px);
+            overflow-y: auto;
+            box-sizing: border-box;
+            position: relative;
+            border: none;
+        }
+
+        .home-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .home-footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 13px;
+            color: var(--text-muted);
+            width: 100%;
+            box-sizing: border-box;
+            z-index: 2;
+            position: relative;
+            border-top: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        header.active {
+            display: flex;
+        }
+
+        .hero-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1100px;
+            width: 100%;
+            gap: 50px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero-left {
+            flex: 1;
+            max-width: 520px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent-light);
+            padding: 10px 20px;
+            border-left: 3px solid var(--accent);
+            background: rgba(59, 130, 246, 0.08);
+            margin-bottom: 32px;
+        }
+
+        .hero-title {
+            font-size: 58px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        .hero-title .accent {
+            color: var(--accent);
+        }
+
+        .hero-description {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .hero-description strong {
+            color: var(--text-primary);
+        }
+
+        .hero-description .role {
+            color: var(--accent-light);
+            font-weight: 600;
+        }
+
+        .hero-socials {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .hero-socials a {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .hero-socials a:hover {
+            border-color: var(--accent);
+            color: var(--accent-light);
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .hero-socials svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--accent);
+            color: #fff;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.3);
+            color: #fff;
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: transparent;
+            color: var(--text-primary);
+            font-weight: 600;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 16px;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent-light);
+            background: rgba(59, 130, 246, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* Code Editor Mockup */
+        .hero-right {
+            flex: 1;
+            max-width: 480px;
+        }
+
+        .code-editor {
+            background: #0c1525;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            will-change: transform;
+            transition: 400ms cubic-bezier(0.03, 0.98, 0.52, 0.99);
+            transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1);
+        }
+
+        .code-editor-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .code-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .code-dots span {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .code-dots span:nth-child(1) { background: #ff5f57; }
+        .code-dots span:nth-child(2) { background: #ffbd2e; }
+        .code-dots span:nth-child(3) { background: #28c840; }
+
+        .code-filename {
+            font-family: 'Fira Code', monospace;
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .code-filename .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        .code-body {
+            padding: 24px 22px;
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+        .code-line {
+            display: flex;
+        }
+
+        .line-number {
+            color: #4a4a5a;
+            width: 32px;
+            text-align: right;
+            margin-right: 20px;
+            user-select: none;
+            flex-shrink: 0;
+        }
+
+        .code-content {
+            flex: 1;
+        }
+
+        .code-keyword { color: #c792ea; }
+        .code-variable { color: #82aaff; }
+        .code-string { color: #c3e88d; }
+        .code-property { color: #f78c6c; }
+        .code-boolean { color: #ff5370; }
+        .code-method { color: #82aaff; }
+        .code-bracket { color: #89ddff; }
+        .code-accent { color: var(--accent-light); }
+
+        /* Pages */
+        .page {
+            margin-top: 74px;
+            height: calc(100vh - 74px);
+            overflow-y: auto;
+            display: none;
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+            flex-direction: column;
+            background: transparent;
+            position: relative;
+            border: none;
+        }
+
+        .page.active {
+            display: flex;
+        }
+
+        .page-content {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 30px;
+            flex: 1;
+            width: 100%;
+            box-sizing: border-box;
+            z-index: 2;
+            position: relative;
+        }
+
+        .page-footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 13px;
+            color: var(--text-muted);
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: auto;
+            z-index: 2;
+            position: relative;
+            border-top: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        /* Sections */
+        section {
+            background: transparent;
+        }
+
+        section h2 {
+            color: var(--text-primary);
+            margin-bottom: 24px;
+            font-size: 2.4em;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        section h3 {
+            color: var(--text-secondary);
+        }
+
+        /* Skills */
+        .skills-container {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        .skills-category h3 {
+            font-size: 1.8em;
+            color: var(--text-primary);
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid rgba(59, 130, 246, 0.2);
+            padding-bottom: 15px;
+        }
+
+        .skills-scroll-wrapper {
+            overflow: hidden;
+            position: relative;
+            padding: 10px 0;
+        }
+
+        .skills-scroll-wrapper::before,
+        .skills-scroll-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 80px;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .skills-scroll-wrapper::before {
+            left: 0;
+            background: linear-gradient(to right, var(--bg-primary), transparent);
+        }
+
+        .skills-scroll-wrapper::after {
+            right: 0;
+            background: linear-gradient(to left, var(--bg-primary), transparent);
+        }
+
+        .skills-track {
+            display: flex;
+            gap: 25px;
+            animation: scroll-left 30s linear infinite;
+            width: max-content;
+        }
+
+        .skills-track.reverse {
+            animation: scroll-right 30s linear infinite;
+        }
+
+        .skills-scroll-wrapper:hover .skills-track {
+            animation-play-state: paused;
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @keyframes scroll-right {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+        }
+
+        .skill-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+            min-width: 200px;
+            max-width: 200px;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            flex-shrink: 0;
+        }
+
+        .skill-card:hover {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.03) 100%);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.12);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .skill-logo {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            font-size: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .skill-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .skill-card h4 {
+            color: var(--text-primary);
+            font-size: 1.2em;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+
+        .skill-card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .skill-mastery {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 12px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .mastery-level {
+            display: flex;
+            gap: 4px;
+        }
+
+        .star {
+            color: var(--accent-light);
+            font-size: 12px;
+        }
+
+        .star.empty {
+            color: #2a2a3a;
+        }
+
+        /* Projects */
+        .projects-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .projects-header h2 {
+            font-size: 2.8em;
+            font-weight: 900;
+            margin-bottom: 12px;
+        }
+
+        .projects-header h2 span {
+            color: #dc2626;
+        }
+
+        .projects-header p {
+            color: var(--text-secondary);
+            font-size: 1.05em;
+            max-width: 650px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(59, 130, 246, 0.15);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .project-card-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .project-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+
+        .project-card:hover .project-card-image img {
+            transform: scale(1.05);
+        }
+
+        .project-card-body {
+            padding: 24px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card-body h3 {
+            color: var(--text-primary);
+            font-size: 1.35em;
+            font-weight: 800;
+            margin: 0 0 12px 0;
+        }
+
+        .project-card-body p {
+            color: var(--text-secondary);
+            font-size: 0.92em;
+            line-height: 1.6;
+            margin-bottom: 18px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: auto;
+        }
+
+        .tech-tag {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.25);
+            color: var(--accent-light);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.78em;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        /* About Me Gallery */
+        .about-gallery {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-top: 15px;
+            padding: 24px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+        }
+
+        .about-gallery img {
+            width: 240px;
+            height: 240px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(59, 130, 246, 0.1);
+            flex-shrink: 0;
+            border: 2px solid rgba(59, 130, 246, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .about-gallery img:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 80px rgba(59, 130, 246, 0.2);
+        }
+
+        .about-text {
+            flex: 1;
+            font-size: 17px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+
+        .about-text p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        /* Contact styles */
+        .contact-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .contact-header h2 {
+            font-size: 2.8em;
+            font-weight: 900;
+            margin-bottom: 12px;
+        }
+
+        .contact-header h2 span {
+            color: #dc2626;
+        }
+
+        .contact-header p {
+            color: var(--text-secondary);
+            font-size: 1.05em;
+            max-width: 650px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .contact-form-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            padding: 36px;
+            position: relative;
+        }
+
+        .contact-form-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 24px;
+            bottom: 24px;
+            width: 3px;
+            background: var(--accent);
+            border-radius: 3px;
+        }
+
+        .contact-form-card h3 {
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .contact-form-card .form-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9em;
+            margin-bottom: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.78em;
+            font-weight: 600;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .form-group label svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--text-secondary);
+            fill: none;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 16px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95em;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            outline: none;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .send-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95em;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .send-btn:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+        }
+
+        .send-btn svg {
+            width: 18px;
+            height: 18px;
+            stroke: #fff;
+            fill: none;
+        }
+
+        /* Right side: Direct Contact + Social */
+        .contact-right {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .direct-contact h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.35em;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .direct-contact h3 svg {
+            width: 22px;
+            height: 22px;
+            stroke: #dc2626;
+            fill: none;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 18px 22px;
+            margin-bottom: 14px;
+            transition: border-color 0.3s, transform 0.3s;
+        }
+
+        .contact-item:hover {
+            border-color: rgba(59, 130, 246, 0.3);
+            transform: translateX(4px);
+        }
+
+        .contact-item-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(220, 38, 38, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-item-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: #dc2626;
+            fill: none;
+        }
+
+        .contact-item-text span {
+            display: block;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 3px;
+        }
+
+        .contact-item-text strong {
+            font-size: 0.95em;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .contact-item-text a {
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .contact-item-text a:hover {
+            color: var(--accent-light);
+        }
+
+        .social-presence h3 {
+            font-size: 1.35em;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 14px;
+        }
+
+        .social-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: border-color 0.3s, transform 0.3s, background 0.3s;
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            background: rgba(59, 130, 246, 0.08);
+            color: var(--accent-light);
+        }
+
+        .social-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        @media (max-width: 768px) {
+            .contact-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            header {
+                padding: 0 24px;
+            }
+            .hero-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 40px;
+                padding: 40px 0;
+            }
+            .hero-left {
+                max-width: 100%;
+            }
+            .hero-right {
+                max-width: 100%;
+                width: 100%;
+            }
+            .hero-badge {
+                border-left: none;
+                border-bottom: 3px solid var(--accent);
+                padding: 8px 16px 12px;
+            }
+            .hero-title {
+                font-size: 32px;
+            }
+            .hero-socials {
+                justify-content: center;
+            }
+            .hero-buttons {
+                justify-content: center;
+            }
+            nav {
+                padding: 14px 20px;
+            }
+            nav .nav-links {
+                gap: 4px;
+            }
+            nav a {
+                padding: 8px 10px;
+                font-size: 13px;
+            }
+            .about-gallery {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Animated Fiber Optic Background -->
+<canvas id="fiberCanvas"></canvas>
+
+<!-- Navigation -->
+<nav>
+    <div class="nav-logo" onclick="showPage('home')">
+        <img src="transparent-lsogo.png" alt="Logo">
+    </div>
+    <div class="nav-links">
+        <a onclick="showPage('home')">Home</a>
+        <a onclick="showPage('about')">About</a>
+        <a onclick="showPage('skills')">Skills</a>
+        <a onclick="showPage('projects')">Projects</a>
+        <a onclick="showPage('contact')">Contact</a>
+    </div>
+</nav>
+
+<!-- Header / Hero Section -->
+<header class="active" id="home">
+    <div class="hero-container home-content">
+        <div class="hero-left">
+            <div class="hero-badge">WELCOME TO MY PORTFOLIO</div>
+            <h1 class="hero-title">Crafting <span class="accent">Digital<br>Masterpieces</span></h1>
+            <p class="hero-description">
+                A Computer Science Student and Aspiring <br><span class="role">Full Stack Developer</span>.<br>
+                Dedicated to building high-performance, user-centric web applications.
+            </p>
+            
+            <div class="hero-buttons">
+                <a onclick="showPage('contact')" class="btn-primary">
+                    LET'S COLLABORATE
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+                </a>
+                <a href="John-Paul-RESUME.pdf" download class="btn-outline">
+                    GET RESUME
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </a>
+            </div>
+        </div>
+        <div class="hero-right">
+            <div class="code-editor">
+                <div class="code-editor-header">
+                    <div class="code-dots">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <div class="code-filename">
+                        <span class="dot"></span> Portfolio.ts
+                    </div>
+                </div>
+                <div class="code-body">
+                    <div class="code-line"><span class="line-number">01</span><span class="code-content"><span class="code-keyword">const</span> <span class="code-variable">developer</span> <span class="code-bracket">=</span> <span class="code-bracket">{</span></span></div>
+                    <div class="code-line"><span class="line-number">02</span><span class="code-content">&nbsp;&nbsp;<span class="code-property">name</span><span class="code-bracket">:</span> <span class="code-string">'John Paul Manansala'</span><span class="code-bracket">,</span></span></div>
+                    <div class="code-line"><span class="line-number">03</span><span class="code-content">&nbsp;&nbsp;<span class="code-property">focus</span><span class="code-bracket">:</span> <span class="code-string">'Fullstack Mastery'</span><span class="code-bracket">,</span></span></div>
+                    <div class="code-line"><span class="line-number">04</span><span class="code-content">&nbsp;&nbsp;<span class="code-property">skills</span><span class="code-bracket">:</span> <span class="code-bracket">[</span><span class="code-string">'React'</span><span class="code-bracket">,</span> <span class="code-string">'PHP'</span><span class="code-bracket">,</span> <span class="code-string">'MySQL'</span><span class="code-bracket">],</span></span></div>
+                    <div class="code-line"><span class="line-number">05</span><span class="code-content">&nbsp;&nbsp;<span class="code-property">passionate</span><span class="code-bracket">:</span> <span class="code-boolean">true</span><span class="code-bracket">,</span></span></div>
+                    <div class="code-line"><span class="line-number">06</span><span class="code-content">&nbsp;&nbsp;<span class="code-property">motto</span><span class="code-bracket">:</span> <span class="code-string">"Build with Purpose"</span></span></div>
+                    <div class="code-line"><span class="line-number">07</span><span class="code-content"><span class="code-bracket">};</span></span></div>
+                    <div class="code-line"><span class="line-number">&nbsp;</span><span class="code-content"></span></div>
+                    <div class="code-line"><span class="line-number">08</span><span class="code-content"><span class="code-variable">developer</span><span class="code-bracket">.</span><span class="code-method">showcase</span><span class="code-bracket">();</span></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="home-footer">
+        &copy; 2026 John Paul Manansala. All Rights Reserved.
+    </div>
+</header>
+
+<!-- About Section -->
+<section class="page" id="about">
+    <div class="page-content">
+        <h2>About Me</h2>
+        
+        <div class="about-gallery">
+            <img src="592726979_2344693075981077_7515013046768306673_n.jpg" alt="John Paul Profile">
+            <div class="about-text">
+                <p>
+                    Hi, I'm <strong>John Paul Manansala</strong>, a Computer Science student and aspiring Full Stack Developer passionate about building efficient, scalable, and user-friendly web applications. I enjoy designing and developing complete systems from responsive front-end interfaces to robust back-end architectures that power real-world solutions.
+                </p>
+
+                <p>
+                   My goal is to become a well-rounded Full Stack Developer capable of building modern, high-performance web applications that deliver meaningful experiences to users. I am always exploring new technologies, frameworks, and best practices to grow as a developer. As I continue my journey in software development, I am eager to contribute creativity, dedication, and technical expertise to future projects and collaborations.
+            </div>
+        </div>
+        <h3 style="margin-top: 40px; color: #ffffff; font-size: 1.8em; text-transform: uppercase; letter-spacing: 1px; border-bottom: 2px solid rgba(59, 130, 246, 0.2); padding-bottom: 15px;">Educational Background</h3>
+        
+        <div style="margin-top: 25px;">
+            <!-- Tertiary Education -->
+            <div style="margin-bottom: 25px; padding: 20px; background: rgba(15, 26, 46, 1); border-radius: 12px; border: 1px solid rgba(59, 130, 246, 0.15); backdrop-filter: blur(10px);">
+                <h4 style="color: #60a5fa; margin: 0 0 5px; font-size: 1em; text-transform: uppercase; letter-spacing: 0.5px;">Tertiary</h4>
+                <h5 style="color: #ffffff; margin: 0 0 3px; font-size: 1.2em;">Bachelor of Science in Computer Science</h5>
+                <p style="color: #cccccc; margin: 0 0 5px; font-size: 14px;">Norzagaray College</p>
+                <p style="color: #d0d0d0; margin: 0; font-size: 13px;">S.Y. 2023 - Present</p>
+            </div>
+
+            <!-- Secondary Education -->
+            <div style="margin-bottom: 25px; padding: 20px; background: rgba(15, 26, 46, 1); border-radius: 12px; border: 1px solid rgba(59, 130, 246, 0.15); backdrop-filter: blur(10px);">
+                <h4 style="color: #60a5fa; margin: 0 0 20px; font-size: 1em; text-transform: uppercase; letter-spacing: 0.5px;">Secondary</h4>
+                
+                <div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.15);">
+                    <h5 style="color: #ffffff; margin: 0 0 3px; font-size: 1.1em;">Senior High School</h5>
+                    <p style="color: #cccccc; margin: 0 0 5px; font-size: 14px;">Masantol National High School</p>
+                    <p style="color: #d0d0d0; margin: 0; font-size: 13px;">S.Y. 2020 - 2022</p>
+                </div>
+
+                <div>
+                    <h5 style="color: #ffffff; margin: 0 0 3px; font-size: 1.1em;">Junior High School</h5>
+                    <p style="color: #cccccc; margin: 0 0 5px; font-size: 14px;">Masantol High School</p>
+                    <p style="color: #d0d0d0; margin: 0; font-size: 13px;">S.Y. 2016 - 2020</p>
+                </div>
+            </div>
+
+            <!-- Primary Education -->
+            <div style="padding: 20px; background: rgba(15, 26, 46, 1); border-radius: 12px; border: 1px solid rgba(59, 130, 246, 0.15); backdrop-filter: blur(10px);">
+                <h4 style="color: #60a5fa; margin: 0 0 10px; font-size: 1em; text-transform: uppercase; letter-spacing: 0.5px;">Primary</h4>
+                <h5 style="color: #ffffff; margin: 0 0 3px; font-size: 1.1em;">Elementary School</h5>
+                <p style="color: #cccccc; margin: 0 0 5px; font-size: 14px;">Palimpe Elementary School</p>
+                <p style="color: #d0d0d0; margin: 0; font-size: 13px;">S.Y. 2010 - 2016</p>
+            </div>
+        </div>    </div>
+    <div class="page-footer">
+        &copy; 2026 John Paul Manansala. All Rights Reserved.
+    </div>
+</section>
+
+<!-- Skills Section -->
+<section class="page" id="skills">
+    <div class="page-content">
+        <h2>Skills</h2>
+        
+        <div class="skills-container">
+            <!-- Technical Skills -->
+            <div class="skills-category">
+                <h3>Technical Skills</h3>
+                <div class="skills-scroll-wrapper">
+                    <div class="skills-track">
+                        <div class="skill-card">
+                            <div class="skill-logo"><img src="HTML5_logo_and_wordmark.svg.png" alt="HTML Logo"></div>
+                            <h4>HTML</h4>
+                            <p>Creating semantic and accessible web page structures with modern HTML5 standards.</p>
+                            <div class="skill-mastery">
+                                <span>Proficiency:</span>
+                                <div class="mastery-level">
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star empty">○</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-logo"><img src="CSS3_logo_and_wordmark.svg.png" alt="CSS Logo"></div>
+                            <h4>CSS</h4>
+                            <p>Designing responsive layouts and beautiful user interfaces with advanced CSS techniques.</p>
+                            <div class="skill-mastery">
+                                <span>Proficiency:</span>
+                                <div class="mastery-level">
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star empty">○</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-logo"><img src="JavaScript-logo.png" alt="JavaScript Logo"></div>
+                            <h4>JavaScript</h4>
+                            <p>Building interactive and dynamic web applications with modern JavaScript ES6+.</p>
+                            <div class="skill-mastery">
+                                <span>Proficiency:</span>
+                                <div class="mastery-level">
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star empty">○</span>
+                                    <span class="star empty">○</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-logo"><img src="React-icon.svg.webp" alt="React Logo"></div>
+                            <h4>React</h4>
+                            <p>Developing component-based user interfaces with React and modern state management.</p>
+                            <div class="skill-mastery">
+                                <span>Proficiency:</span>
+                                <div class="mastery-level">
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star empty">○</span>
+                                    <span class="star empty">○</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python Logo"></div>
+                            <h4>Python</h4>
+                            <p>Developing versatile applications and scripts with Python's powerful libraries.</p>
+                            <div class="skill-mastery">
+                                <span>Proficiency:</span>
+                                <div class="mastery-level">
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star empty">○</span>
+                                    <span class="star empty">○</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" alt="PHP Logo"></div>
+                            <h4>PHP</h4>
+                            <p>Building dynamic server-side web applications and backend systems.</p>
+                            <div class="skill-mastery">
+                                <span>Proficiency:</span>
+                                <div class="mastery-level">
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star empty">○</span>
+                                    <span class="star empty">○</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-logo"><img src="png-clipart-microsoft-visual-studio-express-visual-basic-visual-programming-language-microsoft-purple-blue.png" alt="Visual Basic Logo"></div>
+                            <h4>Visual Basic</h4>
+                            <p>Creating desktop applications with Visual Basic and .NET framework for Windows systems.</p>
+                            <div class="skill-mastery">
+                                <span>Proficiency:</span>
+                                <div class="mastery-level">
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star empty">○</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-logo"><img src="ISO_C++_Logo.svg.png" alt="C++ Logo"></div>
+                            <h4>C++</h4>
+                            <p>Programming efficient systems and applications with object-oriented C++ principles.</p>
+                            <div class="skill-mastery">
+                                <span>Proficiency:</span>
+                                <div class="mastery-level">
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star empty">○</span>
+                                    <span class="star empty">○</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-logo"><img src="Csharp_Logo.png" alt="C# Logo"></div>
+                            <h4>C#</h4>
+                            <p>Building robust applications using C# with .NET framework and modern coding practices.</p>
+                            <div class="skill-mastery">
+                                <span>Proficiency:</span>
+                                <div class="mastery-level">
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star empty">○</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-logo"><img src="images.png" alt="MySQL Logo"></div>
+                            <h4>MySQL</h4>
+                            <p>Designing and managing relational databases with SQL queries and database optimization.</p>
+                            <div class="skill-mastery">
+                                <span>Proficiency:</span>
+                                <div class="mastery-level">
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star empty">○</span>
+                                    <span class="star empty">○</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Duplicate for seamless loop -->
+                        <div class="skill-card">
+                            <div class="skill-logo"><img src="HTML5_logo_and_wordmark.svg.png" alt="HTML Logo"></div>
+                            <h4>HTML</h4>
+                            <p>Creating semantic and accessible web page structures with modern HTML5 standards.</p>
+                            <div class="skill-mastery">
+                                <span>Proficiency:</span>
+                                <div class="mastery-level">
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star empty">○</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-logo"><img src="CSS3_logo_and_wordmark.svg.png" alt="CSS Logo"></div>
+                            <h4>CSS</h4>
+                            <p>Designing responsive layouts and beautiful user interfaces with advanced CSS techniques.</p>
+                            <div class="skill-mastery">
+                                <span>Proficiency:</span>
+                                <div class="mastery-level">
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star empty">○</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-logo"><img src="JavaScript-logo.png" alt="JavaScript Logo"></div>
+                            <h4>JavaScript</h4>
+                            <p>Building interactive and dynamic web applications with modern JavaScript ES6+.</p>
+                            <div class="skill-mastery">
+                                <span>Proficiency:</span>
+                                <div class="mastery-level">
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star empty">○</span>
+                                    <span class="star empty">○</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-logo"><img src="React-icon.svg.webp" alt="React Logo"></div>
+                            <h4>React</h4>
+                            <p>Developing component-based user interfaces with React and modern state management.</p>
+                            <div class="skill-mastery">
+                                <span>Proficiency:</span>
+                                <div class="mastery-level">
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star empty">○</span>
+                                    <span class="star empty">○</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python Logo"></div>
+                            <h4>Python</h4>
+                            <p>Developing versatile applications and scripts with Python's powerful libraries.</p>
+                            <div class="skill-mastery">
+                                <span>Proficiency:</span>
+                                <div class="mastery-level">
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star empty">○</span>
+                                    <span class="star empty">○</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" alt="PHP Logo"></div>
+                            <h4>PHP</h4>
+                            <p>Building dynamic server-side web applications and backend systems.</p>
+                            <div class="skill-mastery">
+                                <span>Proficiency:</span>
+                                <div class="mastery-level">
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star empty">○</span>
+                                    <span class="star empty">○</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-logo"><img src="png-clipart-microsoft-visual-studio-express-visual-basic-visual-programming-language-microsoft-purple-blue.png" alt="Visual Basic Logo"></div>
+                            <h4>Visual Basic</h4>
+                            <p>Creating desktop applications with Visual Basic and .NET framework for Windows systems.</p>
+                            <div class="skill-mastery">
+                                <span>Proficiency:</span>
+                                <div class="mastery-level">
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star empty">○</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-logo"><img src="ISO_C++_Logo.svg.png" alt="C++ Logo"></div>
+                            <h4>C++</h4>
+                            <p>Programming efficient systems and applications with object-oriented C++ principles.</p>
+                            <div class="skill-mastery">
+                                <span>Proficiency:</span>
+                                <div class="mastery-level">
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star empty">○</span>
+                                    <span class="star empty">○</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-logo"><img src="Csharp_Logo.png" alt="C# Logo"></div>
+                            <h4>C#</h4>
+                            <p>Building robust applications using C# with .NET framework and modern coding practices.</p>
+                            <div class="skill-mastery">
+                                <span>Proficiency:</span>
+                                <div class="mastery-level">
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star empty">○</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-logo"><img src="images.png" alt="MySQL Logo"></div>
+                            <h4>MySQL</h4>
+                            <p>Designing and managing relational databases with SQL queries and database optimization.</p>
+                            <div class="skill-mastery">
+                                <span>Proficiency:</span>
+                                <div class="mastery-level">
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star empty">○</span>
+                                    <span class="star empty">○</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Soft Skills -->
+            <div class="skills-category">
+                <h3>Soft Skills</h3>
+                <div class="skills-scroll-wrapper">
+                    <div class="skills-track reverse">
+                        <div class="skill-card">
+                            <div class="skill-logo"><img src="7399787.png" alt="Problem Solving Logo"></div>
+                            <h4>Problem Solving</h4>
+                            <p>Analyzing complex challenges and developing effective solutions with logical thinking.</p>
+                            <div class="skill-mastery">
+                                <span>Proficiency:</span>
+                                <div class="mastery-level">
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-logo">👥</div>
+                            <h4>Communication</h4>
+                            <p>Effectively conveying ideas and collaborating with team members and stakeholders.</p>
+                            <div class="skill-mastery">
+                                <span>Proficiency:</span>
+                                <div class="mastery-level">
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star empty">○</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-logo"><img src="9815843.png" alt="Time Management Logo"></div>
+                            <h4>Time Management</h4>
+                            <p>Organizing tasks efficiently and meeting deadlines while maintaining quality standards.</p>
+                            <div class="skill-mastery">
+                                <span>Proficiency:</span>
+                                <div class="mastery-level">
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star empty">○</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-logo"><img src="image-removebg-preview (1).png" alt="Teamwork Logo"></div>
+                            <h4>Teamwork</h4>
+                            <p>Working collaboratively in teams to achieve common goals and deliver successful projects.</p>
+                            <div class="skill-mastery">
+                                <span>Proficiency:</span>
+                                <div class="mastery-level">
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Duplicate for seamless loop -->
+                        <div class="skill-card">
+                            <div class="skill-logo"><img src="7399787.png" alt="Problem Solving Logo"></div>
+                            <h4>Problem Solving</h4>
+                            <p>Analyzing complex challenges and developing effective solutions with logical thinking.</p>
+                            <div class="skill-mastery">
+                                <span>Proficiency:</span>
+                                <div class="mastery-level">
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-logo">👥</div>
+                            <h4>Communication</h4>
+                            <p>Effectively conveying ideas and collaborating with team members and stakeholders.</p>
+                            <div class="skill-mastery">
+                                <span>Proficiency:</span>
+                                <div class="mastery-level">
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star empty">○</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-logo"><img src="9815843.png" alt="Time Management Logo"></div>
+                            <h4>Time Management</h4>
+                            <p>Organizing tasks efficiently and meeting deadlines while maintaining quality standards.</p>
+                            <div class="skill-mastery">
+                                <span>Proficiency:</span>
+                                <div class="mastery-level">
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star empty">○</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-logo"><img src="image-removebg-preview (1).png" alt="Teamwork Logo"></div>
+                            <h4>Teamwork</h4>
+                            <p>Working collaboratively in teams to achieve common goals and deliver successful projects.</p>
+                            <div class="skill-mastery">
+                                <span>Proficiency:</span>
+                                <div class="mastery-level">
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                    <span class="star">●</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-footer">
+        &copy; 2026 John Paul Manansala. All Rights Reserved.
+    </div>
+</section>
+
+<!-- Projects Section -->
+<section class="page" id="projects">
+    <div class="page-content">
+        <div class="projects-header">
+            <h2>Featured <span>Creations</span></h2>
+            <p>A selection of high-impact digital solutions, built with focus on scalability, performance, and exceptional user experience.</p>
+        </div>
+
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-card-image">
+                    <img src="job.png" alt="Job Recruitment System interface">
+                </div>
+                <div class="project-card-body">
+                    <h3>Job Recruitment System</h3>
+                    <p>A school-based platform designed to help instructors explore job opportunities and assist organizations or employers in finding suitable candidates. Instructors can create profiles, upload resumes, and apply for available job or internship postings.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">PHP</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">CSS</span>
+                        <span class="tech-tag">MySQL</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-card-image">
+                    <img src="hryb.jpg" alt="HRYB POS System interface">
+                </div>
+                <div class="project-card-body">
+                    <h3>HRYB POS System</h3>
+                    <p>A Point of Sale system designed specifically for a pastry business. It helps manage daily sales transactions quickly and accurately, process customer orders, apply discounts, and generate receipts efficiently.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">MySQL</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-card-image">
+                    <img src="cafetech.jpg" alt="CAFETECH Ordering System interface">
+                </div>
+                <div class="project-card-body">
+                    <h3>CAFETECH Ordering System</h3>
+                    <p>A digital solution for a coffee shop to simplify the ordering process. Customers can place orders efficiently while staff manage orders accurately.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Visual Basic</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-card-image">
+                    <img src="luxe heaven.png" alt="LUXE HEAVEN HOTEL Reservation System interface">
+                </div>
+                <div class="project-card-body">
+                    <h3>Luxe Heaven Hotel</h3>
+                    <p>A reservation system designed to manage hotel room bookings efficiently. Guests can check room availability, view room details, and make reservations. Staff can manage bookings and guest information in an organized manner.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">PHP</span>
+                        <span class="tech-tag">MySQL</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-footer">
+        &copy; 2026 John Paul Manansala. All Rights Reserved.
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="page" id="contact">
+    <div class="page-content">
+        <div class="contact-header">
+            <h2>Let's <span>Connect</span></h2>
+            <p>Have a project in mind or just want to say hi? I'm always open to discussing new opportunities and creative ideas.</p>
+        </div>
+
+        <div class="contact-layout">
+            <!-- Left: Send a Message form -->
+            <div class="contact-form-card">
+                <h3>Send a Message</h3>
+                <p class="form-subtitle">I'll get back to you within 24 hours.</p>
+
+                <form action="https://formsubmit.co/manansalajohnpaul120@gmail.com" method="POST">
+                    <input type="hidden" name="_captcha" value="false">
+                    <div class="form-group">
+                        <label>
+                            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            YOUR NAME
+                        </label>
+                        <input type="text" name="name" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                            YOUR EMAIL
+                        </label>
+                        <input type="email" name="email" placeholder="john@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                            YOUR MESSAGE
+                        </label>
+                        <textarea name="message" placeholder="Tell me about your project..." required></textarea>
+                    </div>
+                    <button type="submit" class="send-btn">
+                        SEND MESSAGE
+                        <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4 20-7z"/></svg>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Right: Direct Contact + Social -->
+            <div class="contact-right">
+                <div class="direct-contact">
+                    <h3>
+                        <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4 20-7z"/></svg>
+                        Direct Contact
+                    </h3>
+
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=manansalajohnpaul120@gmail.com" target="_blank" style="text-decoration:none;">
+                        <div class="contact-item">
+                            <div class="contact-item-icon">
+                                <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"/></svg>
+                            </div>
+                            <div class="contact-item-text">
+                                <span>EMAIL</span>
+                                <strong>manansalajohnpaul120@gmail.com</strong>
+                            </div>
+                        </div>
+                    </a>
+
+                    <div class="contact-item">
+                        <div class="contact-item-icon">
+                            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        </div>
+                        <div class="contact-item-text">
+                            <span>PHONE</span>
+                            <strong>+639076244854</strong>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-item-icon">
+                            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                        </div>
+                        <div class="contact-item-text">
+                            <span>LOCATION</span>
+                            <strong>Poblacion, Norzagaray, Bulacan</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="social-presence">
+                    <h3>Social Presence</h3>
+                    <div class="social-icons">
+                        <a href="https://github.com/Dzp4ul" target="_blank" class="social-icon" title="GitHub">
+                            <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/john-paul-manansala-2003473a9/" target="_blank" class="social-icon" title="LinkedIn">
+                            <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=manansalajohnpaul120@gmail.com" target="_blank" class="social-icon" title="Gmail">
+                            <svg viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L12 10.09l8.073-6.597C21.69 2.28 24 3.434 24 5.457z"/></svg>
+                        </a>
+                        <a href="https://www.facebook.com/dzp4ul" target="_blank" class="social-icon" title="Facebook">
+                            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <a href="https://www.instagram.com/polnotnice/" target="_blank" class="social-icon" title="Instagram">
+                            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-footer">
+        &copy; 2026 John Paul Manansala. All Rights Reserved.
+    </div>
+</section>
+
+<!-- Footer -->
+
+<script>
+    function showPage(pageId) {
+        // Hide all pages and header
+        const pages = document.querySelectorAll('.page');
+        const header = document.querySelector('header');
+        
+        pages.forEach(page => page.classList.remove('active'));
+        if (header) header.classList.remove('active');
+        
+        // Show the selected page
+        if (pageId === 'home') {
+            if (header) {
+                header.classList.add('active');
+                header.scrollTop = 0;
+            }
+        } else {
+            const selectedPage = document.getElementById(pageId);
+            if (selectedPage) {
+                selectedPage.classList.add('active');
+                selectedPage.scrollTop = 0;
+            }
+        }
+    }
+
+    // Fiber Optic Background Animation
+    (function() {
+        const canvas = document.getElementById('fiberCanvas');
+        const ctx = canvas.getContext('2d');
+        let w, h;
+
+        function resize() {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        class Fiber {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                // Start from random edges: bottom-left area or bottom-center
+                this.startX = Math.random() * w * 0.6;
+                this.startY = h * (0.7 + Math.random() * 0.3);
+                // Curve toward upper-right
+                this.endX = w * (0.4 + Math.random() * 0.6);
+                this.endY = Math.random() * h * 0.4;
+                // Control points for bezier curves
+                this.cp1x = this.startX + (Math.random() - 0.3) * w * 0.5;
+                this.cp1y = this.startY - Math.random() * h * 0.4;
+                this.cp2x = this.endX - (Math.random() - 0.5) * w * 0.3;
+                this.cp2y = this.endY + Math.random() * h * 0.3;
+                // Visual
+                this.width = 0.5 + Math.random() * 2;
+                this.speed = 0.003 + Math.random() * 0.006;
+                this.progress = Math.random(); // stagger start
+                this.opacity = 0;
+                this.maxOpacity = 0.15 + Math.random() * 0.45;
+                this.hue = 190 + Math.random() * 30; // cyan-blue range
+                this.lightness = 55 + Math.random() * 20;
+                this.length = 0.08 + Math.random() * 0.15;
+            }
+            update() {
+                this.progress += this.speed;
+                if (this.progress > 1.3) this.reset();
+                // Fade in/out
+                if (this.progress < 0.15) {
+                    this.opacity = (this.progress / 0.15) * this.maxOpacity;
+                } else if (this.progress > 0.85) {
+                    this.opacity = Math.max(0, ((1.3 - this.progress) / 0.45) * this.maxOpacity);
+                } else {
+                    this.opacity = this.maxOpacity;
+                }
+            }
+            draw() {
+                if (this.opacity <= 0) return;
+                const t1 = Math.max(0, this.progress - this.length);
+                const t2 = Math.min(1, this.progress);
+                if (t2 <= 0 || t1 >= 1) return;
+                ctx.beginPath();
+                const steps = 30;
+                let started = false;
+                for (let i = 0; i <= steps; i++) {
+                    const t = t1 + (t2 - t1) * (i / steps);
+                    if (t < 0 || t > 1) continue;
+                    const mt = 1 - t;
+                    const x = mt*mt*mt*this.startX + 3*mt*mt*t*this.cp1x + 3*mt*t*t*this.cp2x + t*t*t*this.endX;
+                    const y = mt*mt*mt*this.startY + 3*mt*mt*t*this.cp1y + 3*mt*t*t*this.cp2y + t*t*t*this.endY;
+                    if (!started) { ctx.moveTo(x, y); started = true; }
+                    else ctx.lineTo(x, y);
+                }
+                ctx.strokeStyle = `hsla(${this.hue}, 100%, ${this.lightness}%, ${this.opacity})`;
+                ctx.lineWidth = this.width;
+                ctx.shadowColor = `hsla(${this.hue}, 100%, 70%, ${this.opacity * 0.8})`;
+                ctx.shadowBlur = 6 + this.width * 4;
+                ctx.stroke();
+            }
+        }
+
+        const fibers = [];
+        const fiberCount = 120;
+        for (let i = 0; i < fiberCount; i++) fibers.push(new Fiber());
+
+        function animate() {
+            ctx.clearRect(0, 0, w, h);
+            // Subtle dark overlay to keep background very dark
+            ctx.fillStyle = 'rgba(6, 11, 24, 0.15)';
+            ctx.fillRect(0, 0, w, h);
+            ctx.lineCap = 'round';
+            for (const f of fibers) {
+                f.update();
+                f.draw();
+            }
+            ctx.shadowBlur = 0;
+            requestAnimationFrame(animate);
+        }
+        animate();
+    })();
+
+    // Interactive card tilt effect
+    const card = document.querySelector('.code-editor');
+    const heroRight = document.querySelector('.hero-right');
+    
+    if (card && heroRight) {
+        heroRight.addEventListener('mousemove', (e) => {
+            const rect = heroRight.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = ((y - centerY) / centerY) * -10;
+            const rotateY = ((x - centerX) / centerX) * 10;
+            
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            card.style.boxShadow = '0 35px 80px rgba(0, 0, 0, 0.5)';
+        });
+        
+        heroRight.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+            card.style.boxShadow = '0 20px 60px rgba(0, 0, 0, 0.5)';
+        });
+    }
+
+</script>
+
+</body>
+</html>
