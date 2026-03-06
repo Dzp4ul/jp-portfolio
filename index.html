@@ -1025,51 +1025,236 @@
             color: var(--text-muted);
         }
 
+        /* Hamburger Button */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 1100;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile Nav Overlay */
+        .nav-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(6, 11, 24, 0.6);
+            z-index: 999;
+        }
+
+        .nav-overlay.active {
+            display: block;
+        }
+
         /* Responsive */
-        @media (max-width: 900px) {
-            header {
-                padding: 0 24px;
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
             }
+
+            nav {
+                padding: 14px 20px;
+            }
+
+            nav .nav-links {
+                position: fixed;
+                top: 0;
+                right: -280px;
+                width: 260px;
+                height: 100vh;
+                background: rgba(12, 20, 36, 0.98);
+                backdrop-filter: blur(24px);
+                flex-direction: column;
+                padding: 80px 24px 24px;
+                gap: 4px;
+                z-index: 1050;
+                transition: right 0.3s ease;
+                border-left: 1px solid var(--border);
+            }
+
+            nav .nav-links.active {
+                right: 0;
+            }
+
+            nav .nav-links a {
+                font-size: 16px;
+                padding: 14px 16px;
+                border-radius: 10px;
+                width: 100%;
+            }
+
+            nav .nav-links a:hover {
+                background: rgba(59, 130, 246, 0.12);
+            }
+
+            header {
+                padding: 0 20px;
+            }
+
             .hero-container {
                 flex-direction: column;
                 text-align: center;
-                gap: 40px;
-                padding: 40px 0;
+                gap: 32px;
+                padding: 24px 0;
             }
+
             .hero-left {
                 max-width: 100%;
             }
+
             .hero-right {
                 max-width: 100%;
                 width: 100%;
             }
+
             .hero-badge {
                 border-left: none;
                 border-bottom: 3px solid var(--accent);
                 padding: 8px 16px 12px;
+                font-size: 12px;
+                letter-spacing: 2px;
             }
+
             .hero-title {
                 font-size: 32px;
             }
+
+            .hero-description {
+                font-size: 15px;
+            }
+
+            .hero-description br {
+                display: none;
+            }
+
             .hero-socials {
                 justify-content: center;
             }
+
             .hero-buttons {
                 justify-content: center;
             }
-            nav {
-                padding: 14px 20px;
+
+            .btn-primary, .btn-outline {
+                padding: 12px 22px;
+                font-size: 14px;
             }
-            nav .nav-links {
-                gap: 4px;
+
+            .code-body {
+                padding: 16px 14px;
+                font-size: 12px;
             }
-            nav a {
-                padding: 8px 10px;
-                font-size: 13px;
+
+            .line-number {
+                width: 24px;
+                margin-right: 12px;
             }
+
+            .page-content {
+                padding: 20px 16px;
+                margin: 24px auto;
+            }
+
+            section h2 {
+                font-size: 1.8em;
+            }
+
             .about-gallery {
                 flex-direction: column;
                 text-align: center;
+                padding: 16px;
+            }
+
+            .about-gallery img {
+                width: 180px;
+                height: 180px;
+            }
+
+            .about-text {
+                font-size: 15px;
+            }
+
+            .skills-category h3 {
+                font-size: 1.4em;
+            }
+
+            .skill-card {
+                min-width: 160px;
+                max-width: 160px;
+                padding: 18px;
+            }
+
+            .projects-header h2 {
+                font-size: 2em;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .contact-header h2 {
+                font-size: 2em;
+            }
+
+            .contact-layout {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .contact-form-card {
+                padding: 24px 20px;
+            }
+
+            .social-icons {
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 26px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-primary, .btn-outline {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .about-gallery img {
+                width: 140px;
+                height: 140px;
             }
         }
     </style>
@@ -1084,14 +1269,20 @@
     <div class="nav-logo" onclick="showPage('home')">
         <img src="transparent-lsogo.png" alt="Logo">
     </div>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
     <div class="nav-links">
-        <a onclick="showPage('home')">Home</a>
-        <a onclick="showPage('about')">About</a>
-        <a onclick="showPage('skills')">Skills</a>
-        <a onclick="showPage('projects')">Projects</a>
-        <a onclick="showPage('contact')">Contact</a>
+        <a onclick="showPage('home'); closeMenu()">Home</a>
+        <a onclick="showPage('about'); closeMenu()">About</a>
+        <a onclick="showPage('skills'); closeMenu()">Skills</a>
+        <a onclick="showPage('projects'); closeMenu()">Projects</a>
+        <a onclick="showPage('contact'); closeMenu()">Contact</a>
     </div>
 </nav>
+<div class="nav-overlay" onclick="closeMenu()"></div>
 
 <!-- Header / Hero Section -->
 <header class="active" id="home">
@@ -1986,6 +2177,19 @@
         }
         animate();
     })();
+
+    // Hamburger menu toggle
+    function toggleMenu() {
+        document.querySelector('.hamburger').classList.toggle('active');
+        document.querySelector('.nav-links').classList.toggle('active');
+        document.querySelector('.nav-overlay').classList.toggle('active');
+    }
+
+    function closeMenu() {
+        document.querySelector('.hamburger').classList.remove('active');
+        document.querySelector('.nav-links').classList.remove('active');
+        document.querySelector('.nav-overlay').classList.remove('active');
+    }
 
     // Interactive card tilt effect
     const card = document.querySelector('.code-editor');
